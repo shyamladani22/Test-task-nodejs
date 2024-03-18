@@ -49,11 +49,11 @@ export const UserUpdate = async (req, res) => {
 
 export const Userdelete = async (req, res) => {
     try {
-        await req.user.remove();
+        const user = await User.findByIdAndDelete(req.user._id)
 
         sendCancelationEmail(req.user.email, req.user.name);
 
-        res.send(req.user);
+        res.send(user);
     } catch (e) {
         console.log(e)
         res.status(500).send();
